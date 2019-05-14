@@ -1,14 +1,16 @@
 console.log('App.js is running');
 
-var app = {
+const app = {
     title: 'This is a title',
-    sub: 'This is a Sub title'
+    sub: 'This is a tle',
+    options: ['one ','two ']
 }
 
-var template = (
+const template = (
     <div>
         <h1>{app.title}</h1>
-        <p>{app.sub}</p>
+        {app.sub && <p>{app.sub}</p>}
+        {app.options.length > 0 ? <p>{app.options}</p> : 'no options'}
         <ol>
         <li>Item one</li>
         <li>Item one</li>
@@ -16,30 +18,44 @@ var template = (
     </div>
 );
 
-
-var user = {
-    name: 'Hamzah',
-    age: 27,
-    location: 'Florida'
-};
-
-function getLocation(location){
-    if(!location){
-        return 'Unknown'
-    }
-    return location;
+let count = 0;
+const addOne = ()=>{
+    count++;
+    console.log(' plus one clicked')
+    rerender();
    
 }
-
-var templateTwo = (
+const subOne = ()=>{
+    console.log(' sub one clicked')
+    count--;
+   rerender();
+}
+const rst = ()=>{
+    console.log(' rst clicked')
+   count = 0;
+   rerender();
+}
+const templateTwo = (
     <div>
-    <h1> {user.name}</h1>
-    <p>Age: {user.age}</p>
-    <p>Location: {getLocation(user.location)}</p>
+    <h1>Count: {count}</h1>
+    <button onClick={addOne}>+1</button>
+    <button onClick={subOne}>-1</button>
+    <button onClick={rst}>Reset</button>
     </div>
 );
 
-var appRoot = document.querySelector('#app');
+const appRoot = document.querySelector('#app');
 
 ReactDOM.render(templateTwo, appRoot )
 
+const rerender = ()=>{
+    const templateTwo = (
+        <div>
+        <h1>Count: {count}</h1>
+        <button onClick={addOne}>+1</button>
+        <button onClick={subOne}>-1</button>
+        <button onClick={rst}>Reset</button>
+        </div>
+    );
+    ReactDOM.render(templateTwo, appRoot )
+}
