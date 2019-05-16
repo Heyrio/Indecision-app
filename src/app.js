@@ -22,7 +22,14 @@ const reset = ()=>{
     render();
 }
 
+const onMakeDecision = ()=>{
+   const randomNum = Math.floor(Math.random() * app.options.length);
+   const option = app.option[randomNum];
+}
+
 const appRoot = document.querySelector('#app');
+
+const numbers = [55, 101, 1000];
 
 const render = ()=>{
     const template = (
@@ -30,11 +37,12 @@ const render = ()=>{
             <h1>{app.title}</h1>
             {app.sub && <p>{app.sub}</p>}
             {app.options.length > 0 ? <p>Here are your options</p> : 'no options'}
-            <p>{app.options.length}</p>
+            <button disabled={app.options.length === 0} onClick= {onMakeDecision}>What should I do?</button>
             <button onClick={reset}>Clear</button>
             <ol>
-            <li>Item one</li>
-            <li>Item one</li>
+            {
+                app.options.map((opt)=><li key={opt}>{opt}</li>)
+            }
             </ol>
             <form onSubmit={onFormSubmit}>
             <input type="text" name="option"/>
