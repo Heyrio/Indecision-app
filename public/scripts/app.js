@@ -3,116 +3,84 @@
 console.log('App.js is running');
 
 var app = {
-    title: 'This is a title',
-    sub: 'This is a tle',
-    options: ['one ', 'two ']
+    title: 'Indecision App',
+    sub: 'put your life in the hands of a computer',
+    options: []
 };
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.sub && React.createElement(
-        'p',
-        null,
-        app.sub
-    ),
-    app.options.length > 0 ? React.createElement(
-        'p',
-        null,
-        app.options
-    ) : 'no options',
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item one'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item one'
-        )
-    )
-);
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    var option = e.target.elements.option.value;
 
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    console.log(' plus one clicked');
-    rerender();
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        render();
+    }
 };
-var subOne = function subOne() {
-    console.log(' sub one clicked');
-    count--;
-    rerender();
+
+var reset = function reset() {
+    app.options = [];
+    render();
 };
-var rst = function rst() {
-    console.log(' rst clicked');
-    count = 0;
-    rerender();
-};
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        'Count: ',
-        count
-    ),
-    React.createElement(
-        'button',
-        { onClick: addOne },
-        '+1'
-    ),
-    React.createElement(
-        'button',
-        { onClick: subOne },
-        '-1'
-    ),
-    React.createElement(
-        'button',
-        { onClick: rst },
-        'Reset'
-    )
-);
 
 var appRoot = document.querySelector('#app');
 
-ReactDOM.render(templateTwo, appRoot);
-
-var rerender = function rerender() {
-    var templateTwo = React.createElement(
+var render = function render() {
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            app.title
+        ),
+        app.sub && React.createElement(
+            'p',
+            null,
+            app.sub
+        ),
+        app.options.length > 0 ? React.createElement(
+            'p',
+            null,
+            'Here are your options'
+        ) : 'no options',
+        React.createElement(
+            'p',
+            null,
+            app.options.length
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            '+1'
+            { onClick: reset },
+            'Clear'
         ),
         React.createElement(
-            'button',
-            { onClick: subOne },
-            '-1'
+            'ol',
+            null,
+            React.createElement(
+                'li',
+                null,
+                'Item one'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'Item one'
+            )
         ),
         React.createElement(
-            'button',
-            { onClick: rst },
-            'Reset'
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add option'
+            )
         )
     );
-    ReactDOM.render(templateTwo, appRoot);
+    ReactDOM.render(template, appRoot);
 };
+
+render();
