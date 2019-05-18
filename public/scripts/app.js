@@ -1,17 +1,35 @@
-'use strict';
+"use strict";
 
-var toggle = function toggle() {
-    React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            'Hey there'
-        )
-    );
+var app = document.querySelector('#app');
+var visability = false;
+
+var toggleVisability = function toggleVisability() {
+
+    visability = !visability;
+    render();
 };
 
-var appRoot = document.querySelector('#app');
+var render = function render() {
+    var toggle = React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h1",
+            null,
+            "Visability toggle"
+        ),
+        visability && React.createElement(
+            "p",
+            null,
+            "Hidden text"
+        ),
+        React.createElement(
+            "button",
+            { onClick: toggleVisability },
+            visability ? "Hide details" : "Show Details"
+        )
+    );
+    ReactDOM.render(toggle, app);
+};
 
-ReactDom.render(toggle, appRoot);
+render();

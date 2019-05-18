@@ -1,13 +1,28 @@
+const app = document.querySelector('#app');
+let visability = false;
+
+const toggleVisability = ()=>{
+   
+    visability = !visability
+        render();
+    }
 
 
-const toggle = ()=>{
-    <div>
-    <h1>Hey there</h1>
-    </div>
+
+const render = ()=>{
+    const toggle = (
+        <div>
+       <h1>Visability toggle</h1>
+       {visability && <p>Hidden text</p>}
+       <button onClick={toggleVisability}>
+       {visability ? "Hide details": "Show Details"}
+       </button>
+        </div>
+    )
+    ReactDOM.render(toggle,app);
 }
 
+render();
 
 
-const appRoot = document.querySelector('#app');
 
-ReactDom.render(toggle,appRoot);
